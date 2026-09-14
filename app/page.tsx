@@ -124,33 +124,33 @@ export default function LinksPage() {
           <button 
             onClick={toggleTheme} 
             aria-label="Toggle Theme"
-            className="flex items-center gap-1 p-1 rounded-full bg-[var(--bg-surface)] border border-[var(--border-subtle)] transition-all duration-500 shadow-sm hover:border-[var(--accent-gold)]/30 active:scale-95"
+            className="flex items-center gap-2 p-1.5 rounded-full bg-[var(--bg-surface)] border border-[var(--border-subtle)] transition-all duration-500 shadow-md hover:border-[var(--accent-gold)]/50 hover:shadow-lg active:scale-95"
           >
-            <div className={`p-1.5 rounded-full transition-all duration-300 ${mounted && theme === 'dark' ? 'bg-[var(--bg-secondary)] text-[var(--accent-gold)] shadow-sm' : 'text-[var(--text-muted)] opacity-60'}`}>
-              <MoonIcon className="w-3.5 h-3.5" />
+            <div className={`p-2 rounded-full transition-all duration-300 ${mounted && theme === 'dark' ? 'bg-[#1A1A1A] text-[var(--accent-gold)] shadow-[0_2px_10px_rgba(200,155,60,0.2)]' : 'text-[var(--text-muted)] opacity-50 hover:opacity-100'}`}>
+              <MoonIcon className="w-4 h-4" />
             </div>
-            <div className={`p-1.5 rounded-full transition-all duration-300 ${mounted && theme === 'light' ? 'bg-[var(--bg-secondary)] text-[var(--accent-gold)] shadow-sm' : 'text-[var(--text-muted)] opacity-60'}`}>
-              <SunIcon className="w-3.5 h-3.5" />
+            <div className={`p-2 rounded-full transition-all duration-300 ${mounted && theme === 'light' ? 'bg-[#F4F1EA] text-[var(--accent-gold)] shadow-[0_2px_10px_rgba(200,155,60,0.2)]' : 'text-[var(--text-muted)] opacity-50 hover:opacity-100'}`}>
+              <SunIcon className="w-4 h-4" />
             </div>
           </button>
         </div>
 
         {/* Hero Logo Area */}
         <div className="flex justify-center">
-          <div className="relative w-36 h-36 mb-10 flex items-center justify-center animate-logo-reveal">
+          <div className="relative w-40 h-40 mb-10 flex items-center justify-center animate-logo-reveal">
             {/* Ambient light bloom behind logo */}
-            <div className="absolute inset-0 bg-[var(--accent-gold)] blur-[45px] opacity-[0.12] rounded-full transition-opacity duration-1000" />
+            <div className="absolute inset-0 bg-[var(--accent-gold)] blur-[50px] opacity-[0.25] rounded-full transition-opacity duration-1000" />
             
-            {/* Surface backing for the logo */}
-            <div className="absolute inset-1 rounded-full border border-[var(--accent-gold)]/20 shadow-[0_8px_32px_var(--glow)] bg-[var(--bg-surface)] transition-colors duration-700" />
-            
-            <Image
-              src="/logo.png"
-              alt="ZAMZAM Logo"
-              fill
-              className="object-contain p-7 relative z-10 drop-shadow-xl"
-              priority
-            />
+            {/* Circular Logo Container with overflow-hidden to clip edges */}
+            <div className="absolute inset-2 rounded-full border border-[var(--accent-gold)]/40 shadow-[0_8px_40px_rgba(200,155,60,0.25)] bg-[#050505] overflow-hidden">
+              <Image
+                src="/logo.png"
+                alt="ZAMZAM Logo"
+                fill
+                className="object-cover scale-[1.15] drop-shadow-2xl"
+                priority
+              />
+            </div>
           </div>
         </div>
 
@@ -172,8 +172,8 @@ export default function LinksPage() {
           <div className="w-10 h-[1px] bg-[var(--border-subtle)] mx-auto mt-4 transition-colors duration-700" />
         </div>
 
-        {/* Editorial Links Container */}
-        <div className="w-full flex flex-col gap-3">
+        {/* Glassmorphism Links Container */}
+        <div className="w-full flex flex-col gap-4 px-2">
           {links.map((link, index) => {
             const Icon = link.icon;
             return (
@@ -182,33 +182,35 @@ export default function LinksPage() {
                 href={link.href}
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="group relative flex items-center justify-between w-full p-[22px] rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/30 transition-all duration-400 overflow-hidden active:scale-[0.985] lg:hover:-translate-y-[2px] shadow-sm hover:shadow-md"
+                className="group relative flex items-center justify-between w-full p-6 rounded-3xl bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-[var(--accent-gold)]/60 transition-all duration-500 overflow-hidden active:scale-[0.97] lg:hover:-translate-y-[4px] shadow-[0_8px_30px_var(--card-shadow)] hover:shadow-[0_12px_40px_var(--glow)]"
                 style={{
                   animation: `fadeUpList 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards`,
                   animationDelay: `${500 + index * 90}ms`,
                   opacity: 0,
                 }}
               >
-                {/* Soft sweep light on hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--accent-gold)]/[0.04] to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-[1200ms] ease-in-out pointer-events-none" />
+                {/* Dynamic Glass Highlight */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.02] via-transparent to-[var(--accent-gold)]/[0.05] pointer-events-none" />
+                
+                {/* Sweep light on hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--accent-gold)]/[0.08] to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-[1200ms] ease-in-out pointer-events-none" />
 
                 <div className="flex items-center gap-5 relative z-10">
-                  <span className="text-[var(--accent-gold)]/40 font-mono text-[11px] tracking-widest group-hover:text-[var(--accent-gold)] transition-colors duration-400">
-                    {link.num}
-                  </span>
+                  <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-[var(--icon-bg)] border border-[var(--border-subtle)] group-hover:bg-[var(--accent-gold)]/10 group-hover:border-[var(--accent-gold)]/40 transition-colors duration-500">
+                    <Icon className="w-6 h-6 text-[var(--accent-gold)] opacity-80 group-hover:scale-[1.1] group-hover:opacity-100 transition-all duration-500" />
+                  </div>
                   <div className="flex flex-col">
-                    <span className="text-[var(--text-primary)] font-medium text-[13px] tracking-[0.15em] uppercase group-hover:text-[var(--accent-gold)] transition-colors duration-400">
+                    <span className="text-[var(--text-primary)] font-bold text-[14px] tracking-[0.15em] uppercase group-hover:text-[var(--accent-gold)] transition-colors duration-400">
                       {link.name}
                     </span>
-                    <span className="text-[var(--text-muted)] text-[11px] tracking-wide mt-[3px] group-hover:text-[var(--text-secondary)] transition-colors duration-400">
+                    <span className="text-[var(--text-muted)] text-[12px] tracking-wide mt-1 group-hover:text-[var(--text-secondary)] transition-colors duration-400">
                       {link.subtitle}
                     </span>
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-4 relative z-10">
-                  <Icon className="w-[18px] h-[18px] text-[var(--accent-gold)] opacity-70 group-hover:scale-[1.08] group-hover:opacity-100 transition-all duration-400" />
-                  <span className="text-[var(--accent-gold)]/30 group-hover:text-[var(--accent-gold)] group-hover:translate-x-[5px] transition-all duration-400 text-sm">
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--icon-bg)] border border-transparent group-hover:border-[var(--accent-gold)]/30 relative z-10 transition-colors duration-500">
+                  <span className="text-[var(--accent-gold)]/50 group-hover:text-[var(--accent-gold)] group-hover:translate-x-[2px] transition-all duration-400 text-sm">
                     ↗
                   </span>
                 </div>
@@ -240,6 +242,10 @@ export default function LinksPage() {
           --border-subtle: rgba(255, 255, 255, 0.05);
           --hover-surface: #1A1A1A;
           --glow: rgba(200, 155, 60, 0.12);
+          --card-bg: rgba(255, 255, 255, 0.03);
+          --card-border: rgba(255, 255, 255, 0.08);
+          --card-shadow: rgba(0, 0, 0, 0.5);
+          --icon-bg: rgba(255, 255, 255, 0.04);
         }
 
         :root[data-theme="light"] {
@@ -254,6 +260,10 @@ export default function LinksPage() {
           --border-subtle: rgba(0, 0, 0, 0.05);
           --hover-surface: #F9F8F6;
           --glow: rgba(169, 123, 32, 0.08);
+          --card-bg: rgba(255, 255, 255, 0.6);
+          --card-border: rgba(200, 155, 60, 0.15);
+          --card-shadow: rgba(0, 0, 0, 0.03);
+          --icon-bg: rgba(200, 155, 60, 0.05);
         }
 
         body {
